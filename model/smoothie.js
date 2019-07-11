@@ -24,6 +24,10 @@ const smoothieSchema = mongoose.Schema({
         type: String, 
         required: false 
     },
+    description:{ 
+        type: String, 
+        required: false 
+    },
     recipe:[
                 {
                     stepText: String
