@@ -16,7 +16,6 @@ router.get("/liste", async (req, res, next) => {
 
 });
 
-
 router.get("/liste/:smoothie", async (req, res, next) => { 
     try{
         const selectedsmoothie = await Smoothie.findOne({"_id" : mongoose.Types.ObjectId(req.params.smoothie)});
@@ -29,5 +28,20 @@ router.get("/liste/:smoothie", async (req, res, next) => {
     }
 
 });
+
+router.post('/add', async (req, res, next) => {
+
+    let newSmoothie = new Smoothie();
+    newSmoothie.title = req.body.title; //permet de manipuler, populer le nouvel objet de type Smoothie
+    newSmoothie.description = req.body.description;
+
+    try {
+        const smoothie = await newSmoothie.save(); 
+        res.send(smoothie); //renvoi du nouveau smoothie avec son nouvel Id, utilisable pour afficher une fiche !
+    } catch(err) {
+        res.status(400).send(err);
+    }
+});
+
 
 module.exports = router; // sans cette ligne: erreur de routeur
